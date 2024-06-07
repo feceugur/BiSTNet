@@ -16,6 +16,9 @@ from BiSTNet_functions import superslomo_transforms
 from BiSTNet_functions import exists_or_mkdir
 from BiSTNet_functions import colorize_video
 
+imput_dataset = "../" + input_data + "/input/001/"
+ref_dataset = "../" + input_data + "/ref/001/"
+out_dir = "../" + input_data + "/output/001/"
 
 flag_ntire23 = True  # else use DAVIS raw ref dataset structure
 flag_ntire23_OOMSplitVideo = False  # else use DAVIS raw ref dataset structure && split videos to F300 F300-600 F600
@@ -37,9 +40,9 @@ parser.add_argument("--cuda", action="store_false")
 parser.add_argument("--gpu_ids", type=str, default="0", help="separate by comma")
 
 # 20230215 ntire test set
-parser.add_argument("--clip_path", type=str, default= imput_dataset, help="path of input clips")
-parser.add_argument("--ref_path", type=str, default= ref_dataset, help="path of refernce images")
-parser.add_argument("--output_path", type=str, default= out_dir, help="path of output clips")
+parser.add_argument("--clip_path", type=str, default=imput_dataset, help="path of input clips")
+parser.add_argument("--ref_path", type=str, default=ref_dataset, help="path of refernce images")
+parser.add_argument("--output_path", type=str, default=out_dir, help="path of output clips")
 
 start_idx = 0
 end_idx = -1
@@ -169,7 +172,7 @@ for idx_clip, clip in enumerate(clips):
         ActEndIdx = min(ActEndIdx, len(refs))
 
         print(i, 'startImg: %s endImg: %s, ActStartIdx: %s, ActEndIdx: %s' % (
-        sub_ref[0], sub_ref[-1], ActStartIdx, ActEndIdx))
+            sub_ref[0], sub_ref[-1], ActStartIdx, ActEndIdx))
 
         colorize_video(
             opt,
@@ -186,6 +189,3 @@ for idx_clip, clip in enumerate(clips):
             ActStartIdx,
             ActEndIdx,
         )
-
-
-
